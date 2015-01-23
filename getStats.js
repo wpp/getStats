@@ -32,11 +32,6 @@ rtcPeerConnection.getStats(function(result) {
             interval = arguments[2];
         }
 
-        var globalObject = {
-            audio: {},
-            video: {}
-        };
-
         var nomore = false;
 
         getPrivateStats();
@@ -56,16 +51,7 @@ rtcPeerConnection.getStats(function(result) {
                     var res = results[i];
 
                     if (res.googCodecName == 'opus') {
-                        if (!globalObject.audio.prevBytesSent)
-                            globalObject.audio.prevBytesSent = res.bytesSent;
-
-                        var bytes = res.bytesSent - globalObject.audio.prevBytesSent;
-                        globalObject.audio.prevBytesSent = res.bytesSent;
-
-                        var kilobytes = bytes / 1024;
-
                         result.audio = merge(result.audio, {
-                            availableBandwidth: kilobytes.toFixed(1),
                             inputLevel: res.audioInputLevel,
                             packetsLost: res.packetsLost,
                             rtt: res.googRtt,
@@ -75,16 +61,7 @@ rtcPeerConnection.getStats(function(result) {
                     }
 
                     if (res.googCodecName == 'VP8') {
-                        if (!globalObject.video.prevBytesSent)
-                            globalObject.video.prevBytesSent = res.bytesSent;
-
-                        var bytes = res.bytesSent - globalObject.video.prevBytesSent;
-                        globalObject.video.prevBytesSent = res.bytesSent;
-
-                        var kilobytes = bytes / 1024;
-
                         result.video = merge(result.video, {
-                            availableBandwidth: kilobytes.toFixed(1),
                             googFrameHeightInput: res.googFrameHeightInput,
                             googFrameWidthInput: res.googFrameWidthInput,
                             googCaptureQueueDelayMsPerS: res.googCaptureQueueDelayMsPerS,
