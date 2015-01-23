@@ -118,7 +118,7 @@ rtcPeerConnection.getStats(function(result) {
 
                 // second argument checks to see, if target-user is still connected.
                 if (!nomore) {
-                    typeof interval != undefined && interval && setTimeout(getPrivateStats, interval || 1000);
+                    typeof interval !== undefined && interval && setTimeout(getPrivateStats, interval || 1000);
                 }
             });
         }
@@ -155,8 +155,8 @@ rtcPeerConnection.getStats(function(result) {
                     cb(items);
                 });
             }
-        };
-    }
+        }
+    };
 
     function merge(mergein, mergeto) {
         if (!mergein) mergein = {};
