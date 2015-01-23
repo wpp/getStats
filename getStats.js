@@ -50,7 +50,7 @@ rtcPeerConnection.getStats(function(result) {
                 for (var i = 0; i < results.length; ++i) {
                     var res = results[i];
 
-                    if (res.googCodecName == 'opus') {
+                    if (res.googCodecName == 'opus' && res.bytesSent) {
                         result.audio = merge(result.audio, {
                             inputLevel: res.audioInputLevel,
                             packetsLost: res.packetsLost,
